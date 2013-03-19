@@ -1,11 +1,12 @@
-#
-# The EventScope is used to bind callbacks. It is set up so that identifiers
-# might traverse up to find nodes above an IScope, which allows to refer to
-# the "top" node in a callback like this:
+# CallbackBinding objects are used to provide name lookup for callbacks. 
+# They are set up in such a way that unknown identifiers might traverse
+# up the parents of a node to find a finally matching node. This allows
+# the "top" node in the following callback to be refered by the name
+# "top", like this:
 #
 #     on "top p" { top.attribute = "p" }
 #
-class Rusty::EventScope < Object #BasicObject
+class Rusty::CallbackBinding < Object #BasicObject
   #
   # Create a subclass with a given name and a set of helper modules.
   def self.subclass_with_name_and_helpers(name, *helpers)

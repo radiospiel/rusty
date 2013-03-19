@@ -17,9 +17,9 @@ class TestScope < Test::Unit::TestCase
     mid = Rusty::Scope.new node("mid"), top
     bot = Rusty::Scope.new node("bot"), mid
 
-    e_top = Rusty::EventScope.new(top)
-    e_mid = Rusty::EventScope.new(mid)
-    e_bot = Rusty::EventScope.new(bot)
+    e_top = Rusty::CallbackBinding.new(top)
+    e_mid = Rusty::CallbackBinding.new(mid)
+    e_bot = Rusty::CallbackBinding.new(bot)
 
     object_ids = []
 
@@ -38,9 +38,9 @@ class TestScope < Test::Unit::TestCase
     mid = Rusty::Scope.new node("mid"), top
     bot = Rusty::Scope.new node("bot"), mid
 
-    e_top = Rusty::EventScope.new(top)
-    e_mid = Rusty::EventScope.new(mid)
-    e_bot = Rusty::EventScope.new(bot)
+    e_top = Rusty::CallbackBinding.new(top)
+    e_mid = Rusty::CallbackBinding.new(mid)
+    e_bot = Rusty::CallbackBinding.new(bot)
 
     # When evaluated in the context of e_bot, 
     # top must refer to the top Rusty::Scope
@@ -62,7 +62,7 @@ class TestScope < Test::Unit::TestCase
     mid = Rusty::Scope.new node("mid"), top
     bot = Rusty::Scope.new node("bot"), mid
 
-    e_bot = Rusty::EventScope.new(bot)
+    e_bot = Rusty::CallbackBinding.new(bot)
 
     e_bot.instance_eval do
       top.name = "top"

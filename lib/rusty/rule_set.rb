@@ -63,12 +63,12 @@ module Rusty::RuleSet
   private
   
   # returns the class for event scopes in this RuleSet. This is a subclass of
-  # Rusty::EventScope, which is named after the current modules name (i.e. if
+  # Rusty::CallbackBinding, which is named after the current modules name (i.e. if
   # RuleSet is extended into a Module Foo, the subclass will be named Rusty::
-  # EventScope::Foo) and which has all helpers correctly loaded. 
+  # CallbackBinding::Foo) and which has all helpers correctly loaded. 
 
-  def event_scope_klass
-    @event_scope_klass ||= Rusty::EventScope.subclass_with_name_and_helpers name, *helpers
+  def callback_binding_klass
+    @callback_binding_klass ||= Rusty::CallbackBinding.subclass_with_name_and_helpers name, *helpers
   end
 
   public
@@ -82,7 +82,7 @@ module Rusty::RuleSet
     scope ||= Rusty::Scope.new(node)
 
     # The callback scope for this node.
-    event_scope = event_scope_klass.new(scope) 
+    callback_binding = callback_binding_klass.new(scope) 
 
     has_rule = false
     
@@ -90,11 +90,11 @@ module Rusty::RuleSet
       # find explicit rule for this node. Warn if there is none.
       if rule = best_rule(mode, node)
         has_rule = true
-        event_scope.instance_eval(&rule.proc)
+        callback_binding.instance_eval(&rule.proc)
       end
 
       # in :on mode: process children, unless explicitely skipped.
-      if mode == :on && !event_scope.skip?
+      if mode == :on && !callback_binding.skip?
         node.children.each do |child|
           next if child.text? || child.cdata?
           next if child.comment?
@@ -104,8 +104,8 @@ module Rusty::RuleSet
       end
 
       # run callback
-      if callback = event_scope.callback
-        event_scope.instance_eval(&callback)
+      if callback = callback_binding.callback
+        callback_binding.instance_eval(&callback)
       end
     end
     

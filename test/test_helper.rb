@@ -17,10 +17,10 @@ class TestSelector < Test::Unit::TestCase
     assert_equal 2, RuleSet.helpers.length
   end
   
-  def test_event_scope_klass_includes_helpers
-    event_scope_klass = RuleSet.send(:event_scope_klass)
-    assert event_scope_klass.public_instance_methods.include?(:a_helper_method)
-    assert event_scope_klass.public_instance_methods.include?(:text) # from Rusty::Helpers::Text
+  def test_callback_binding_klass_includes_helpers
+    callback_binding_klass = RuleSet.send(:callback_binding_klass)
+    assert callback_binding_klass.public_instance_methods.include?(:a_helper_method)
+    assert callback_binding_klass.public_instance_methods.include?(:text) # from Rusty::Helpers::Text
   end
 
   def test_text
