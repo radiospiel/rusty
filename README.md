@@ -50,10 +50,10 @@ There is an additional way to define a callback, which makes some sense if you n
     module SimpleRSS
       extend Rusty::RuleSet
 
-      on "rss channel item"       do 
-        puts "Hu! An item node" 
+      on "rss channel item" do 
+        start = Time.now
         callback do
-          puts "Now I have seen all of the item's children" end
+          puts "Parsing the item took #{Time.now - start} secs."
         end
       end
     end
