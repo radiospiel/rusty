@@ -38,7 +38,7 @@ And this works miracles.
 
 ## Defining callbacks
 
-Rusty knows two different kind of callbacks. The `on` callback, which is run before processing a node's children, and the `after` callback, which is run once all children have been visited.
+Rusty knows two different kind of callbacks. The `on` callback, which is run before processing a node's children, and the `after` callback, which is run once all children have been visited. `after` and `on` callbacks can coexist.
 
     module SimpleRSS
       extend Rusty::RuleSet
@@ -48,7 +48,7 @@ Rusty knows two different kind of callbacks. The `on` callback, which is run bef
       after "rss channel item"    do puts "Now I have seen all of the item's children" end
     end
 
-There is an additional way to define a callback, which makes some sense if you need both an "on" and an "after" callback for the same nodes, and probably want to share some information between these:
+There is an additional way to define a callback, which makes some sense if you need both an "on" and an "after" callback for the same node(s), and probably want to share some information between these:
   
     module SimpleRSS
       extend Rusty::RuleSet
@@ -60,33 +60,6 @@ There is an additional way to define a callback, which makes some sense if you n
         end
       end
     end
-
-## Defining callbacks
-
-Rusty knows two different kind of callbacks. The `on` callback, which is run before processing a node's children, and the `after` callback, which is run once all children have been visited.
-
-    module SimpleRSS
-      extend Rusty::RuleSet
-
-      on "rss channel item"       do puts "Hu! An item node" end
-      on "rss channel item *"     do puts "A child of an item" end
-      after "rss channel item"    do puts "Now I have seen all of the item's children" end
-    end
-
-There is an additional way to define a callback, which makes some sense if you need both an "on" and an "after" callback for the same nodes, and probably want to share some information between these:
-  
-    module SimpleRSS
-      extend Rusty::RuleSet
-
-      on "rss channel item"       do 
-        puts "Hu! An item node" 
-        callback do
-          puts "Now I have seen all of the item's children" end
-        end
-      end
-    end
-
-`after` and `callback` callbacks can coexist.
 
 ## Creating output data
 
