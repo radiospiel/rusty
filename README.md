@@ -112,6 +112,14 @@ If you want to keep a node's data you must put it somewhere, as in the following
 
     on "rss channel item"   do rss.items << item end
 
+## Node names
+
+What is a matching name? While XML documents may come with names that might make sense, HTML usually does not. After all, a `<div>` is a `<div>` no matter what.
+
+For that reason rusty matches both node names and node classes when looking up a node by name. (And yes, that means a node might have multiple names.) And as of yet node names that are not valid ruby identifiers cannot be used in the callback block.
+
+There is one special name, `document`, which refers to the top-most node.
+
 ## Rusty data nodes
 
 A Rusty data node (of type Rusty::DX), is a mongrel of a `Hash`, an `Array`, and `nil`. Unless set to something - i.e. as long as being `nil` - it might turn into an Array or a Hash-like structure, depending on what you do to them.
@@ -140,6 +148,24 @@ Of course you are free to do whatever. After all, each callback is just a piece 
       
       on "rss channel item *"     do item[node.name] = text(node) end
       after "rss channel item"    do puts "Found an item: #{item.to_ruby}" end
+    end
+
+## The `*` callback
+
+You will usually see a rule like this:
+    
+    on "*" do end
+
+The "*" selector has a very low weight, meaning it matches all nodes that are not matched by any other rule. This is done to prevent rusty from warning about nodes without a matching rule.
+
+During development you should not use a rule like that. Add it only after you feel confident you get all the data you need form the input.
+
+## Speeding up
+
+Especially when parsing HTML you might find a number of nodes that belong to a subtree in the document which is completely irrelevant. For example, a page like http://www.google.com/movies contains tons of UI elements, which - assuming you would be interested in theater schedules - is just irrelevant. By skipping the entire subtree you might gain some speed when parsing the input:
+
+    on "#navbar, #left_nav" do
+      skip!
     end
 
 ## Helpers and the callback scope
