@@ -1,11 +1,21 @@
+PATH
+  remote: .
+  specs:
+    rusty (0.1)
+      nokogiri
+
 GEM
   specs:
     archive-tar-minitar (0.5.2)
     columnize (0.3.6)
+    json (1.7.7)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
     multi_json (1.6.1)
     nokogiri (1.5.6)
+    rake (10.0.3)
+    rdoc (3.12.1)
+      json (~> 1.4)
     ruby-debug-base19 (0.11.25)
       columnize (>= 0.3.1)
       linecache19 (>= 0.5.11)
@@ -26,7 +36,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  nokogiri
+  rake
+  rdoc
   ruby-debug19
+  rusty!
   simplecov
   test-unit

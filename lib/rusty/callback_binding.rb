@@ -1,3 +1,8 @@
+# This file is part of the rusty ruby gem.
+#
+# Copyright (c) 2013 @radiospiel
+# Distributed under the terms of the modified BSD license, see LICENSE.BSD
+
 # CallbackBinding objects are used to provide name lookup for callbacks. 
 # They are set up in such a way that unknown identifiers might traverse
 # up the parents of a node to find a finally matching node. This allows

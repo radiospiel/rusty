@@ -1,8 +1,13 @@
+require "bundler"
+Bundler.setup :development
+
+Dir.glob("tasks/*.rake").each do |file|
+  load file
+end
+
 task :default => :test
 
-task :test do
-  Dir.glob("test/test_*.rb").each do |file|
-    
-    load file
-  end
-end
+# Add "rake release and rake install"
+Bundler::GemHelper.install_tasks
+
+task :default => [:test, :rdoc]
