@@ -31,7 +31,10 @@ and/or to do something else entirely.
 
 rusty is here to help you.
 
-It **let you define procedures to run on nodes, specified by CSS selectors**, and it **provides a simple name lookup when in fact creating a data structure**.
+- It let you define procedures to run on nodes, specified by CSS selectors, and
+- it provides a simple name lookup when in fact creating a data structure.
+
+And this works miracles.
 
 ## Defining callbacks
 
